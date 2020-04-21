@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from __future__ import absolute_import
 from __future__ import division
@@ -153,7 +153,7 @@ def deploy_cert(args):
     logger.debug(' + ssl_certificate_key: {0}'.format(privkey_pem))
 
     try:
-        DEPLOY_HOOK = os.environ['CF_EMAIL']
+        DEPLOY_HOOK = os.environ['CF_DEPLOY_HOOK']
         logger.debug(" + executing external deploy hook: {0} {1}".format(DEPLOY_HOOK, domain))
         os.system("{0} {1}".format(DEPLOY_HOOK, domain))
     except KeyError:
