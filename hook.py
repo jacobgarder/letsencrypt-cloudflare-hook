@@ -151,6 +151,13 @@ def deploy_cert(args):
     domain, privkey_pem, cert_pem, fullchain_pem, chain_pem, timestamp = args
     logger.debug(' + ssl_certificate: {0}'.format(fullchain_pem))
     logger.debug(' + ssl_certificate_key: {0}'.format(privkey_pem))
+
+    try:
+        DEPLOY_HOOK = os.environ['CF_EMAIL']
+        logger.debug(" + executing external deploy hook: {0} {1}".format(DEPLOY_HOOK, domain))
+        os.system("{0} {1}".format(DEPLOY_HOOK, domain))
+    except KeyError:
+        logger.debug(" + No external deploy hook found in environment!")
     return
 
 
